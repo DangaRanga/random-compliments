@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-const useFetch = (url) => {
+const useFetch = () => {
   const [compliment, setCompliment] = useState(null);
   const [loading, setLoading] = useState(true);
 
   // Fetches for the compliment
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(url);
+      const response = await fetch(`https://complimentr.com/api`);
       const data = await response.json();
       const recievedCompliment = data.compliment;
       setCompliment(recievedCompliment);
@@ -22,7 +22,7 @@ const useFetch = (url) => {
 };
 
 function App() {
-  const { compliment, loading } = useFetch(`https://complimentr.com/api`);
+  const { compliment, loading } = useFetch();
   return (
     <div className="wrapper">
       <div className="container">
