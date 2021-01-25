@@ -6,16 +6,23 @@ const useFetch = (url) => {
   const [loading, setLoading] = useState(true);
 
   // Fetches for the compliment
-  useEffect(async () => {
-    const response = await fetch(url);
-    const data = await response.json();
-    const recievedCompliment = data.compliment;
-    setCompliment(recievedCompliment);
-    setLoading(false);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(url);
+      const data = await response.json();
+      const recievedCompliment = data.compliment;
+      setCompliment(recievedCompliment);
+      setLoading(false);
+
+      return { compliment, loading };
+    }
+
+    fetchData();
   }, []);
 
   return { compliment, loading };
 };
+
 function App() {
   const { compliment, loading } = useFetch(`https://complimentr.com/api`);
   return (
