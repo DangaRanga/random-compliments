@@ -21,13 +21,12 @@ function App() {
   return (
     <div className="wrapper">
       <div className="container">
-        <div id="colon">"</div>
         {loading ? (
           <div className="content">Loading Compliment...</div>
         ) : (
           compliment && (
             <div className="content">
-              {compliment.charAt(0).toUpperCase() + compliment.slice(1)}
+              <p>{compliment.charAt(0).toUpperCase() + compliment.slice(1)}</p>
             </div>
           )
         )}
