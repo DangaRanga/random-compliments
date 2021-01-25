@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
 
+const useFetch = (url) => {
+  const [compliment, setCompliment] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fetches for the compliment
+  useEffect(async () => {
+    const response = await fetch(url);
+    const data = await response.json();
+    const recievedCompliment = data.compliment;
+    setCompliment(recievedCompliment);
+    setLoading(false);
+  }, []);
+
+  return { compliment, loading };
+};
 function App() {
+  const { compliment, loading } = useFetch(`https://complimentr.com/api`);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+      <div className="container">
+        <div id="colon">"</div>
+        {loading ? (
+          <div className="content">Loading Compliment...</div>
+        ) : (
+          compliment && (
+            <div className="content">
+              {compliment.charAt(0).toUpperCase() + compliment.slice(1)}
+            </div>
+          )
+        )}
+      </div>
     </div>
   );
 }
