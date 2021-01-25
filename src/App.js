@@ -12,12 +12,10 @@ const useFetch = (url) => {
       const data = await response.json();
       const recievedCompliment = data.compliment;
       setCompliment(recievedCompliment);
-      setLoading(false);
-
-      return { compliment, loading };
     }
 
     fetchData();
+    setLoading(false);
   }, []);
 
   return { compliment, loading };
